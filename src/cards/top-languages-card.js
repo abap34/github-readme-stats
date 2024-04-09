@@ -226,7 +226,14 @@ const createProgressTextNode = ({
 
   const progress = parseFloat(((size / totalSize) * 100).toFixed(2));
   const bytes = formatBytes(size);
-  const showValue = statsFormat === "bytes" ? bytes : `${progress}%`;
+  const bytes_long = size.toLocaleString() + " Bytes";
+
+  const showValue =
+    statsFormat === "bytes"
+      ? bytes
+      : statsFormat === "bytes_long"
+        ? bytes_long
+        : progress + "%";
 
   return `
     <g class="stagger" style="animation-delay: ${staggerDelay}ms">
@@ -265,8 +272,14 @@ const createCompactLangNode = ({
 }) => {
   const percentage = ((lang.size / totalSize) * 100).toFixed(2) + "%";
   const bytes = formatBytes(lang.size);
+  const bytes_long = lang.size.toLocaleString() + " Bytes";
 
-  const showValue = statsFormat === "bytes" ? bytes : percentage;
+  const showValue =
+    statsFormat === "bytes"
+      ? bytes
+      : statsFormat === "bytes_long"
+        ? bytes_long
+        : percentage;
 
   const staggerDelay = (index + 3) * 150;
   const color = lang.color || "#858585";
@@ -385,7 +398,7 @@ const renderNormalLayout = (langs, width, totalLanguageSize, statsFormat) => {
  * @param {number} width Card width.
  * @param {number} totalLanguageSize Total size of all languages.
  * @param {boolean=} hideProgress Whether to hide progress bar.
- * @param {string} statsFormat Stats format.
+ * @param {string=} statsFormat Stats format.
  * @returns {string} Compact layout card SVG object.
  */
 const renderCompactLayout = (

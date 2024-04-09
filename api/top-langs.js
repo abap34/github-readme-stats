@@ -66,7 +66,7 @@ export default async (req, res) => {
   if (
     stats_format !== undefined &&
     (typeof stats_format !== "string" ||
-      !["bytes", "percentages"].includes(stats_format))
+      !["bytes", "percentages", "bytes_long"].includes(stats_format))
   ) {
     return res.send(
       renderError("Something went wrong", "Incorrect stats_format input"),
