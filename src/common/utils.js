@@ -116,9 +116,10 @@ const iconWithLabel = (icon, label, testid, iconSize) => {
  * @returns {string|number} The formatted number.
  */
 const kFormatter = (num) => {
-  return Math.abs(num) > 999
-    ? Math.sign(num) * parseFloat((Math.abs(num) / 1000).toFixed(1)) + "k"
-    : Math.sign(num) * Math.abs(num);
+  return num;
+  // return Math.abs(num) > 999
+  //   ? Math.sign(num) * parseFloat((Math.abs(num) / 1000).toFixed(1)) + "k"
+  //   : Math.sign(num) * Math.abs(num);
 };
 
 /**
@@ -471,7 +472,7 @@ const CONSTANTS = {
   SIX_DAY,
   TEN_DAY,
   CARD_CACHE_SECONDS: ONE_DAY,
-  TOP_LANGS_CACHE_SECONDS: SIX_DAY,
+  TOP_LANGS_CACHE_SECONDS: TEN_MINUTES,
   PIN_CARD_CACHE_SECONDS: TEN_DAY,
   ERROR_CACHE_SECONDS: TEN_MINUTES,
 };
@@ -614,15 +615,19 @@ const formatBytes = (bytes) => {
     return "0 B";
   }
 
-  const sizes = ["B", "KB", "MB", "GB", "TB", "PB", "EB"];
-  const base = 1024;
-  const i = Math.floor(Math.log(bytes) / Math.log(base));
+  // 3桁ずつコンマいれる
+  const bytesString = bytes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return `${bytesString} B`;
 
-  if (i >= sizes.length) {
-    throw new Error("Bytes is too large to convert to a human-readable string");
-  }
+  // const sizes = ["B", "KB", "MB", "GB", "TB", "PB", "EB"];
+  // const base = 1024;
+  // const i = Math.floor(Math.log(bytes) / Math.log(base));
 
-  return `${(bytes / Math.pow(base, i)).toFixed(1)} ${sizes[i]}`;
+  // if (i >= sizes.length) {
+  //   throw new Error("Bytes is too large to convert to a human-readable string");
+  // }
+
+  // return `${(bytes / Math.pow(base, i)).toFixed(1)} ${sizes[i]}`;
 };
 
 export {

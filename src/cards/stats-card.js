@@ -233,7 +233,7 @@ const renderStatsCard = (stats, options = {}) => {
     custom_title,
     border_radius,
     border_color,
-    number_format = "short",
+    number_format = "long",
     locale,
     disable_animations = false,
     rank_icon = "default",
